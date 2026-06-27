@@ -1,8 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Navbar from '@/components/layout/Navbar';
-import BottomNav from '@/components/layout/BottomNav';
 import { ChevronDown, Phone } from 'lucide-react';
 
 const COLORS = {
@@ -82,8 +80,6 @@ export default function BabyPage() {
 
   return (
     <main style={{ background: '#FAF5F1', minHeight: '100vh' }}>
-      <Navbar />
-
       <div style={{ maxWidth: '950px', margin: 'auto', padding: '40px 25px 120px' }}>
         {/* Header */}
         <div style={{ marginBottom: '40px' }}>
@@ -251,7 +247,6 @@ export default function BabyPage() {
         </div>
       </div>
 
-      <BottomNav />
     </main>
   );
 }
