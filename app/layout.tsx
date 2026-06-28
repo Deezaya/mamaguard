@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { QueryClientProvider } from "./providers/QueryClientProvider";
-import AppLayoutShell from "./components/AppLayoutShell";
 
 export const metadata: Metadata = {
   title: "MamaGuard - Postpartum Health Companion",
@@ -19,9 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <QueryClientProvider>
-          <AppLayoutShell>{children}</AppLayoutShell>
-        </QueryClientProvider>
+        <QueryClientProvider>{children}</QueryClientProvider>
       </body>
     </html>
   );

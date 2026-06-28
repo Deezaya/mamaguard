@@ -1,5 +1,7 @@
 'use client';
 
+import Navbar from '@/components/layout/Navbar';
+import BottomNav from '@/components/layout/BottomNav';
 import { Search, AlertCircle, MapPin, Phone, Globe, Navigation, PhoneCall } from 'lucide-react';
 import { useState } from 'react';
 
@@ -48,6 +50,8 @@ export default function FindCarePage() {
 
   return (
     <main style={{ background: '#FAF5F1', minHeight: '100vh' }}>
+      <Navbar />
+
       <div style={{ maxWidth: '1150px', margin: 'auto', padding: '40px 30px 120px' }}>
         {/* Header */}
         <div style={{ marginBottom: '40px' }}>
@@ -337,6 +341,7 @@ export default function FindCarePage() {
         </button>
       </div>
 
+      <BottomNav />
     </main>
   );
 }

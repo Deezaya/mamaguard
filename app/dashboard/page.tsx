@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import Navbar from '@/components/layout/Navbar';
+import BottomNav from '@/components/layout/BottomNav';
 import { Activity, Heart, Droplet, Thermometer, Camera, Users } from 'lucide-react';
 import Link from 'next/link';
 
@@ -42,6 +44,8 @@ export default function Dashboard() {
 
   return (
     <main style={{ background: '#FAF5F1', minHeight: '100vh' }}>
+      <Navbar />
+
       <div style={{ maxWidth: '1200px', margin: 'auto', padding: '40px' }}>
         {/* Header */}
         <div style={{ marginBottom: '30px' }}>
@@ -241,6 +245,7 @@ export default function Dashboard() {
         </div>
       </div>
 
+      <BottomNav />
     </main>
   );
 }
