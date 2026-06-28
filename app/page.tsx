@@ -3,280 +3,155 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
-import { Leaf, HeartPulse, Baby, Hospital } from "lucide-react";
+import { Activity, Baby, CheckCircle2, HeartPulse, Hospital, ShieldCheck } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoading) {
-      if (user) {
-        router.push("/dashboard");
-      }
+    if (!isLoading && user) {
+      router.push("/dashboard");
     }
   }, [user, isLoading, router]);
 
   if (isLoading) {
     return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "100vh",
-          background: "var(--background)",
-        }}
-      >
+      <div className="landing-loading">
         <div style={{ textAlign: "center" }}>
-          <div
-            style={{
-              display: "inline-block",
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              border: "4px solid var(--color-primary)",
-              borderBottomColor: "transparent",
-              animation: "spin 1s linear infinite",
-              marginBottom: "16px",
-            }}
-          />
+          <div className="loading-ring" />
           <p style={{ color: "var(--color-text-muted)" }}>Loading...</p>
-          <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
         </div>
       </div>
     );
   }
 
+  const features = [
+    {
+      icon: HeartPulse,
+      title: "Camera-based vitals",
+      description: "Capture heart and breathing signals with a quick face scan, no extra device required.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Risk-aware check-ins",
+      description: "Combine vitals with danger sign questions so recovery concerns are easier to spot.",
+    },
+    {
+      icon: Hospital,
+      title: "Care nearby",
+      description: "Find hospitals and care providers quickly when symptoms need attention.",
+    },
+  ];
+
+  const steps = ["Scan your vitals", "Answer warning-sign questions", "Get a clear risk summary"];
+
   return (
-    <div style={{ minHeight: "100vh", background: "var(--background)" }}>
-      {/* Header */}
-      <header
-        style={{
-          background: "white",
-          boxShadow: "0 10px 30px rgba(0,0,0,.05)",
-          padding: "20px 60px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-        className="max-md:px-5"
-      >
-        <Link
-          href="/"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            fontSize: "25px",
-            fontWeight: "800",
-            color: "var(--color-primary)",
-            textDecoration: "none",
-          }}
-        >
-          <Leaf size={28} />
-          MamaGuard
+    <div className="landing-page">
+      <header className="landing-header">
+        <Link href="/" className="landing-brand">
+          <Image src="/mamaguard-logo.png" alt="MamaGuard" width={42} height={42} />
+          <span>MamaGuard</span>
         </Link>
 
-        <div style={{ display: "flex", gap: "12px" }}>
-          <Link
-            href="/login"
-            style={{
-              padding: "12px 24px",
-              borderRadius: "12px",
-              background: "transparent",
-              color: "var(--color-primary)",
-              border: "2px solid var(--color-primary)",
-              textDecoration: "none",
-              fontWeight: "700",
-              cursor: "pointer",
-              transition: ".3s",
-            }}
-            className="hover:bg-accent"
-          >
+        <nav className="landing-actions" aria-label="Account actions">
+          <Link href="/login" className="btn btn-secondary">
             Sign In
           </Link>
-          <Link
-            href="/register"
-            style={{
-              padding: "12px 24px",
-              borderRadius: "12px",
-              background: "var(--color-primary)",
-              color: "white",
-              border: "none",
-              textDecoration: "none",
-              fontWeight: "700",
-              cursor: "pointer",
-              transition: ".3s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-          >
-            Sign Up
-          </Link>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "80px 60px",
-          textAlign: "center",
-        }}
-        className="max-md:px-5 max-md:py-12"
-      >
-        <h1
-          style={{
-            fontSize: "56px",
-            fontWeight: "800",
-            color: "var(--color-dark)",
-            marginBottom: "20px",
-            lineHeight: "1.2",
-          }}
-          className="max-md:text-4xl"
-        >
-          Real-time Postpartum Health Monitoring
-        </h1>
-        <p
-          style={{
-            fontSize: "18px",
-            color: "var(--color-text-muted)",
-            marginBottom: "40px",
-            maxWidth: "600px",
-            margin: "0 auto 40px",
-          }}
-        >
-          MamaGuard uses AI-powered face scanning to monitor your vital signs and assess health risks during your
-          postpartum recovery journey.
-        </p>
-
-        <div style={{ display: "flex", gap: "12px", justifyContent: "center", marginBottom: "60px" }}>
-          <Link
-            href="/register"
-            style={{
-              padding: "16px 40px",
-              borderRadius: "12px",
-              background: "var(--color-primary)",
-              color: "white",
-              border: "none",
-              textDecoration: "none",
-              fontWeight: "800",
-              fontSize: "16px",
-              cursor: "pointer",
-              transition: ".3s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-          >
+          <Link href="/register" className="btn btn-primary">
             Get Started
           </Link>
-          <Link
-            href="/login"
-            style={{
-              padding: "16px 40px",
-              borderRadius: "12px",
-              background: "var(--color-accent)",
-              color: "var(--color-primary)",
-              border: "none",
-              textDecoration: "none",
-              fontWeight: "800",
-              fontSize: "16px",
-              cursor: "pointer",
-              transition: ".3s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-          >
-            Sign In
-          </Link>
-        </div>
-      </section>
+        </nav>
+      </header>
 
-      {/* Features */}
-      <section
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "60px",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "30px",
-        }}
-        className="max-md:px-5 max-md:py-8"
-      >
-        <div
-          style={{
-            background: "white",
-            padding: "40px",
-            borderRadius: "20px",
-            textAlign: "center",
-            boxShadow: "0 10px 30px rgba(0,0,0,.05)",
-          }}
-        >
-          <HeartPulse size={48} style={{ color: "var(--color-primary)", margin: "0 auto 20px" }} />
-          <h3 style={{ fontSize: "20px", fontWeight: "800", marginBottom: "12px", color: "var(--color-dark)" }}>
-            Real-time Vitals
-          </h3>
-          <p style={{ color: "var(--color-text-muted)", lineHeight: "1.5" }}>
-            Monitor your heart rate, respiratory rate, and oxygen levels with advanced AI technology.
+      <main>
+        <section className="landing-hero">
+          <div className="landing-hero__copy">
+            <p className="landing-kicker">Postpartum health monitoring</p>
+            <h1>Know when recovery needs attention.</h1>
+            <p className="landing-lede">
+              MamaGuard helps new mothers track vital signs, check danger symptoms, and find nearby care during the
+              postpartum period.
+            </p>
+
+            <div className="landing-hero__actions">
+              <Link href="/register" className="btn btn-primary btn-large">
+                Create Account
+              </Link>
+              <Link href="/login" className="btn btn-secondary btn-large">
+                Sign In
+              </Link>
+            </div>
+          </div>
+
+          <div className="landing-preview" aria-label="MamaGuard dashboard preview">
+            <div className="preview-top">
+              <div>
+                <p>Day 14 postpartum</p>
+                <h2>Good morning, Mama</h2>
+              </div>
+              <Activity size={28} />
+            </div>
+            <div className="preview-scan">
+              <p>STEP 1 · HEALTH SCAN</p>
+              <h3>Ready for your scan?</h3>
+              <span>Start Face Scan</span>
+            </div>
+            <div className="preview-grid">
+              <div>
+                <HeartPulse size={22} />
+                <span>Vitals</span>
+              </div>
+              <div>
+                <Baby size={22} />
+                <span>Baby care</span>
+              </div>
+              <div>
+                <Hospital size={22} />
+                <span>Nearby care</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="landing-steps" aria-label="How MamaGuard works">
+          {steps.map((step, index) => (
+            <div key={step}>
+              <span>{index + 1}</span>
+              <p>{step}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="landing-features">
+          {features.map(({ icon: Icon, title, description }) => (
+            <article key={title} className="landing-feature-card">
+              <div className="feature-icon">
+                <Icon size={28} />
+              </div>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </article>
+          ))}
+        </section>
+
+        <section className="landing-care-note">
+          <div>
+            <CheckCircle2 size={30} />
+            <h2>Built for daily postpartum check-ins</h2>
+          </div>
+          <p>
+            MamaGuard is designed to make repeated health checks feel simple: scan, answer a few symptom questions,
+            review your risk level, and know your next step.
           </p>
-        </div>
+        </section>
+      </main>
 
-        <div
-          style={{
-            background: "white",
-            padding: "40px",
-            borderRadius: "20px",
-            textAlign: "center",
-            boxShadow: "0 10px 30px rgba(0,0,0,.05)",
-          }}
-        >
-          <Baby size={48} style={{ color: "var(--color-primary)", margin: "0 auto 20px" }} />
-          <h3 style={{ fontSize: "20px", fontWeight: "800", marginBottom: "12px", color: "var(--color-dark)" }}>
-            Daily Check-in
-          </h3>
-          <p style={{ color: "var(--color-text-muted)", lineHeight: "1.5" }}>
-            Log your symptoms and receive personalized health recommendations based on your status.
-          </p>
-        </div>
-
-        <div
-          style={{
-            background: "white",
-            padding: "40px",
-            borderRadius: "20px",
-            textAlign: "center",
-            boxShadow: "0 10px 30px rgba(0,0,0,.05)",
-          }}
-        >
-          <Hospital size={48} style={{ color: "var(--color-primary)", margin: "0 auto 20px" }} />
-          <h3 style={{ fontSize: "20px", fontWeight: "800", marginBottom: "12px", color: "var(--color-dark)" }}>
-            Find Care
-          </h3>
-          <p style={{ color: "var(--color-text-muted)", lineHeight: "1.5" }}>
-            Locate nearby healthcare providers and emergency services in your area instantly.
-          </p>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer
-        style={{
-          background: "white",
-          borderTop: "1px solid var(--color-border)",
-          padding: "40px 60px",
-          textAlign: "center",
-          color: "var(--color-text-muted)",
-          fontSize: "14px",
-        }}
-        className="max-md:px-5"
-      >
-        <p>© 2026 MamaGuard. All rights reserved. Taking care of mamas, one scan at a time.</p>
+      <footer className="landing-footer">
+        <p>© 2026 MamaGuard. Taking care of mamas, one scan at a time.</p>
       </footer>
     </div>
   );
 }
-         

@@ -68,14 +68,14 @@ export default function RegisterPage() {
         minHeight: "100vh",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
-        background: "var(--background)",
+        background: "linear-gradient(180deg, #fff8f6 0%, var(--background) 100%)",
       }}
-      className="max-md:grid-cols-1"
+      className="auth-page max-md:grid-cols-1"
     >
       {/* Left Side - Branding */}
       <div
         style={{
-          background: `linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%)`,
+          background: `linear-gradient(135deg, #9f4b42 0%, #d9897f 100%)`,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -83,7 +83,7 @@ export default function RegisterPage() {
           padding: "40px",
           color: "white",
         }}
-        className="max-md:hidden"
+        className="auth-brand-panel max-md:hidden"
       >
         <div style={{ textAlign: "center", maxWidth: "400px" }}>
           <Image
@@ -134,11 +134,11 @@ export default function RegisterPage() {
           alignItems: "center",
           padding: "40px",
         }}
-        className="max-md:px-5"
+        className="auth-form-panel max-md:px-5"
       >
-        <div style={{ width: "100%", maxWidth: "380px" }}>
+        <div className="auth-card" style={{ width: "100%", maxWidth: "440px" }}>
           {/* Mobile Logo */}
-          <div style={{ textAlign: "center", marginBottom: "40px" }} className="md:hidden">
+          <div style={{ textAlign: "center", marginBottom: "28px" }} className="md:hidden">
             <Image
               src="/mamaguard-logo.png"
               alt="MamaGuard"
@@ -150,7 +150,7 @@ export default function RegisterPage() {
 
           {/* Header */}
           <div style={{ marginBottom: "32px" }}>
-            <h2 style={{ fontSize: "32px", fontWeight: "800", color: "var(--color-dark)", marginBottom: "8px" }}>
+            <h2 style={{ fontSize: "34px", fontWeight: "900", color: "var(--color-dark)", marginBottom: "8px", lineHeight: "1.1" }}>
               Create Account
             </h2>
             <p style={{ color: "var(--color-text-muted)", fontSize: "16px" }}>
@@ -177,7 +177,7 @@ export default function RegisterPage() {
           )}
 
           {/* Register Form */}
-          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          <form className="auth-form" onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             {/* Name */}
             <div>
               <label style={{ display: "block", marginBottom: "8px", fontWeight: "700", color: "var(--color-dark)", fontSize: "14px" }}>
@@ -394,6 +394,7 @@ export default function RegisterPage() {
 
             {/* Submit Button */}
             <button
+              className="auth-submit"
               type="submit"
               disabled={isLoading}
               style={{
@@ -425,7 +426,7 @@ export default function RegisterPage() {
           </form>
 
           {/* Sign In Link */}
-          <div style={{ textAlign: "center", marginTop: "32px", paddingTop: "32px", borderTop: "1px solid var(--color-border)" }}>
+          <div className="auth-switch" style={{ textAlign: "center", marginTop: "32px", paddingTop: "32px", borderTop: "1px solid var(--color-border)" }}>
             <p style={{ color: "var(--color-text-muted)", fontSize: "16px" }}>
               Already have an account?{" "}
               <Link
