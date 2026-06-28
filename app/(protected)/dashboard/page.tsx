@@ -3,7 +3,19 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/app/context/AuthContext";
 import { api } from "@/app/lib/api";
-import { Brain, Eye, Hand, Droplets, Thermometer, Wind, Heart, MapPin, Clock, Video } from "lucide-react";
+import {
+  ArrowRight,
+  Brain,
+  ClipboardList,
+  Droplets,
+  Eye,
+  Hand,
+  HeartPulse,
+  MapPin,
+  ScanFace,
+  Thermometer,
+  Wind,
+} from "lucide-react";
 import SymptomCard from "@/app/components/SymptomCard";
 import Card from "@/app/components/Card";
 import Link from "next/link";
@@ -12,27 +24,22 @@ export default function DashboardPage() {
   const { user } = useAuth();
   const [selectedSymptoms, setSelectedSymptoms] = useState<Record<string, boolean>>({});
   const [postpartumDay, setPostpartumDay] = useState(14);
-  const [userProfile, setUserProfile] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
 
   const symptoms = [
     { id: "severe_headache", icon: Brain, label: "Severe headache" },
     { id: "blurred_vision", icon: Eye, label: "Blurred vision" },
-    { id: "abdominal_pain", icon: Hand, label: "Abdominal pain" },
+    { id: "sudden_swelling", icon: Hand, label: "Swollen hands" },
     { id: "heavy_bleeding", icon: Droplets, label: "Heavy bleeding" },
     { id: "high_fever", icon: Thermometer, label: "High fever" },
-    { id: "shortness_of_breath", icon: Wind, label: "Shortness of breath" },
-    { id: "racing_heartbeat", icon: Heart, label: "Racing heartbeat" },
+    { id: "shortness_of_breath", icon: Wind, label: "Hard to breathe" },
+    { id: "racing_heartbeat", icon: HeartPulse, label: "Racing heartbeat" },
   ];
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        setLoading(true);
         const profile = await api.getProfile();
-        setUserProfile(profile);
 
-        // Calculate postpartum day from created_at date
         if (profile.created_at) {
           const createdDate = new Date(profile.created_at);
           const today = new Date();
@@ -41,10 +48,7 @@ export default function DashboardPage() {
         }
       } catch (err) {
         console.error("Error fetching user profile:", err);
-        // Use default value if API fails
         setPostpartumDay(14);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -59,42 +63,43 @@ export default function DashboardPage() {
   };
 
   return (
-    <div style={{ background: "var(--color-bg)", minHeight: "100vh", paddingBottom: "100px" }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "32px 20px" }} className="max-md:p-4">
-        {/* Greeting Section */}
-        <div style={{ marginBottom: "28px" }} className="max-md:mb-6">
-          <p style={{ color: "var(--color-text-muted)", fontWeight: "600", fontSize: "13px", margin: "0 0 8px 0" }} className="max-md:text-xs">
+    <div style={{ background: "linear-gradient(180deg, #fff8f6 0%, var(--background) 100%)", minHeight: "100vh", paddingBottom: "100px" }}>
+      <div style={{ maxWidth: "1140px", margin: "0 auto", padding: "42px 28px" }} className="max-md:p-4">
+        <div style={{ marginBottom: "34px" }} className="max-md:mb-6">
+          <p style={{ color: "var(--color-text-secondary)", fontWeight: "800", fontSize: "16px", margin: "0 0 14px 0" }} className="max-md:text-xs">
             Day {postpartumDay} postpartum
           </p>
-          <h1 style={{ fontSize: "36px", fontWeight: "800", margin: "0", color: "var(--color-dark)", lineHeight: "1.2" }} className="max-md:text-2xl">
-            Good morning, <span style={{ color: "var(--color-primary)" }}>{user?.name || "Mama"}</span> 🌿
+          <h1 style={{ fontSize: "48px", fontWeight: "900", margin: "0", color: "var(--color-dark)", lineHeight: "1.08", letterSpacing: "0" }} className="max-md:text-2xl">
+            Good morning,
+            <br />
+            <span style={{ color: "var(--color-primary)" }}>{user?.name || "Mama"}</span>{" "}
+            <span aria-hidden="true">🌿</span>
           </h1>
         </div>
 
-        {/* Scan CTA Card */}
         <div
           style={{
-            background: "linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-lighter) 100%)",
-            borderRadius: "24px",
-            padding: "32px",
+            background: "linear-gradient(135deg, #d96767 0%, #eaa09a 100%)",
+            borderRadius: "20px",
+            padding: "44px 42px",
             color: "white",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            boxShadow: "0 16px 40px rgba(185,111,98,.2)",
-            marginBottom: "32px",
-            gap: "20px",
+            boxShadow: "0 18px 42px rgba(168, 85, 74, .22)",
+            marginBottom: "28px",
+            gap: "32px",
           }}
           className="max-md:flex-col max-md:text-center max-md:p-6 max-md:gap-4"
         >
           <div>
-            <p style={{ fontSize: "11px", fontWeight: "800", letterSpacing: "0.5px", margin: "0 0 12px 0", opacity: 0.95 }}>
+            <p style={{ fontSize: "14px", fontWeight: "800", letterSpacing: "0", margin: "0 0 20px 0", opacity: 0.95 }}>
               STEP 1 · HEALTH SCAN
             </p>
-            <h2 style={{ fontSize: "28px", fontWeight: "800", margin: "0 0 10px 0", lineHeight: "1.2" }}>
+            <h2 style={{ fontSize: "34px", fontWeight: "900", margin: "0 0 14px 0", lineHeight: "1.12" }}>
               Ready for your scan?
             </h2>
-            <p style={{ opacity: 0.95, fontSize: "15px", margin: "0", lineHeight: "1.5" }}>
+            <p style={{ opacity: 0.95, fontSize: "17px", margin: "0", lineHeight: "1.55", maxWidth: "520px", fontWeight: "600" }}>
               A quick AI-powered scan checks your recovery and gives personalized postpartum insights.
             </p>
           </div>
@@ -105,16 +110,16 @@ export default function DashboardPage() {
                 border: "none",
                 background: "white",
                 color: "var(--color-primary)",
-                padding: "14px 28px",
-                borderRadius: "12px",
+                padding: "22px 30px",
+                borderRadius: "16px",
                 fontWeight: "800",
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
-                gap: "8px",
+                gap: "14px",
                 transition: "transform .2s, box-shadow .2s",
                 boxShadow: "0 8px 20px rgba(0,0,0,.1)",
-                fontSize: "15px",
+                fontSize: "16px",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-2px)";
@@ -125,42 +130,54 @@ export default function DashboardPage() {
                 e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,.1)";
               }}
             >
-              <Video size={18} />
+              <ScanFace size={24} />
               Start Face Scan
             </button>
           </Link>
         </div>
 
-        {/* Daily Check-in */}
         <div
           style={{
             background: "white",
-            borderRadius: "24px",
-            padding: "32px",
-            marginBottom: "40px",
-            boxShadow: "0 8px 20px rgba(0,0,0,.04)",
+            border: "1px solid rgba(168, 85, 74, .08)",
+            borderRadius: "20px",
+            padding: "28px",
+            marginBottom: "24px",
+            boxShadow: "0 14px 36px rgba(46, 34, 40, .07)",
           }}
         >
-          <div style={{ marginBottom: "28px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
-              <div style={{ width: "5px", height: "28px", background: "var(--color-primary)", borderRadius: "2.5px" }} />
+          <div style={{ display: "flex", alignItems: "flex-start", gap: "18px", marginBottom: "24px" }}>
+            <div
+              style={{
+                width: "58px",
+                height: "58px",
+                borderRadius: "14px",
+                background: "#fff1ef",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <ClipboardList size={26} style={{ color: "var(--color-primary)" }} />
+            </div>
+            <div>
               <h2 style={{ fontSize: "22px", fontWeight: "800", color: "var(--color-dark)", margin: "0" }}>
                 Daily Check-in
               </h2>
+              <p style={{ color: "var(--color-text-muted)", fontWeight: "600", fontSize: "15px", margin: "6px 0 0 0" }}>
+                Select any warning signs you're experiencing today
+              </p>
             </div>
-            <p style={{ color: "var(--color-text-muted)", fontWeight: "600", fontSize: "15px", margin: "4px 0 0 0", paddingLeft: "17px" }}>
-              Select any warning signs you're experiencing today
-            </p>
           </div>
 
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
-              gap: "12px",
+              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+              gap: "16px",
               gridAutoRows: "1fr",
             }}
-            className="max-md:grid-cols-3"
           >
             {symptoms.map(({ id, icon: Icon, label }) => (
               <SymptomCard
@@ -175,69 +192,70 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Quick Action Cards */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "20px",
+            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+            gap: "18px",
           }}
           className="max-md:grid-cols-1 max-md:gap-3"
         >
           <Link href="/care" style={{ textDecoration: "none" }}>
-            <Card>
-              <div style={{ display: "flex", alignItems: "flex-start", gap: "14px" }}>
+            <Card className="dashboard-action-card">
+              <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
                 <div
                   style={{
-                    width: "48px",
-                    height: "48px",
-                    borderRadius: "12px",
-                    background: "var(--color-accent)",
+                    width: "70px",
+                    height: "70px",
+                    borderRadius: "16px",
+                    background: "#fff1ef",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
                   }}
                 >
-                  <MapPin size={24} style={{ color: "var(--color-primary)" }} />
+                  <MapPin size={32} style={{ color: "var(--color-primary)" }} />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <h3 style={{ fontSize: "18px", fontWeight: "800", color: "var(--color-dark)", margin: "0 0 6px 0" }}>
+                  <h3 style={{ fontSize: "20px", fontWeight: "900", color: "var(--color-dark)", margin: "0 0 8px 0" }}>
                     Find Nearby Care
                   </h3>
-                  <p style={{ color: "var(--color-text-muted)", fontWeight: "600", fontSize: "14px", margin: "0" }}>
+                  <p style={{ color: "var(--color-text-muted)", fontWeight: "600", fontSize: "15px", margin: "0", lineHeight: "1.45" }}>
                     Locate trusted postpartum healthcare providers near you.
                   </p>
                 </div>
+                <ArrowRight size={24} style={{ color: "var(--color-primary)", flexShrink: 0 }} />
               </div>
             </Card>
           </Link>
 
           <Link href="/history" style={{ textDecoration: "none" }}>
-            <Card>
-              <div style={{ display: "flex", alignItems: "flex-start", gap: "14px" }}>
+            <Card className="dashboard-action-card">
+              <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
                 <div
                   style={{
-                    width: "48px",
-                    height: "48px",
-                    borderRadius: "12px",
-                    background: "var(--color-accent)",
+                    width: "70px",
+                    height: "70px",
+                    borderRadius: "16px",
+                    background: "#fff1ef",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
                   }}
                 >
-                  <Clock size={24} style={{ color: "var(--color-primary)" }} />
+                  <ClipboardList size={32} style={{ color: "var(--color-primary)" }} />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <h3 style={{ fontSize: "18px", fontWeight: "800", color: "var(--color-dark)", margin: "0 0 6px 0" }}>
+                  <h3 style={{ fontSize: "20px", fontWeight: "900", color: "var(--color-dark)", margin: "0 0 8px 0" }}>
                     History
                   </h3>
-                  <p style={{ color: "var(--color-text-muted)", fontWeight: "600", fontSize: "14px", margin: "0" }}>
+                  <p style={{ color: "var(--color-text-muted)", fontWeight: "600", fontSize: "15px", margin: "0", lineHeight: "1.45" }}>
                     View your previous scans and checkups.
                   </p>
                 </div>
+                <ArrowRight size={24} style={{ color: "var(--color-primary)", flexShrink: 0 }} />
               </div>
             </Card>
           </Link>

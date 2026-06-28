@@ -20,7 +20,7 @@ export default function Card({ children, className = "", onClick }: CardProps) {
         cursor: onClick ? "pointer" : "default",
         transition: onClick ? ".3s" : "none",
       }}
-      className={className}
+      className={`mamaguard-card ${className}`.trim()}
     >
       {children}
     </div>

@@ -51,9 +51,9 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <div className="protected-shell" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Navbar />
-      <main style={{ flex: 1, paddingBottom: "80px", marginBottom: "0" }}>
+      <main className="protected-main" style={{ flex: 1, paddingBottom: "80px", marginBottom: "0" }}>
         {children}
       </main>
       <MobileBottomNav />

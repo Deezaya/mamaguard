@@ -18,10 +18,10 @@ export default function MobileBottomNav() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 md:hidden z-50 flex justify-around items-center gap-1 rounded-t-3xl bg-white"
+      className="mobile-bottom-nav fixed bottom-0 left-0 right-0 md:hidden z-50 flex justify-around items-center gap-1 bg-white"
       style={{
         boxShadow: "0 -8px 24px rgba(0,0,0,.08)",
-        padding: "12px 8px 20px 8px",
+        padding: "10px 8px calc(10px + env(safe-area-inset-bottom))",
         height: "auto",
       }}
     >
@@ -29,7 +29,7 @@ export default function MobileBottomNav() {
         <Link
           key={href}
           href={href}
-          className="flex flex-col items-center gap-1 text-center no-underline transition-all duration-200 hover:scale-110 p-2 rounded-lg flex-1"
+          className="mobile-bottom-nav__item flex flex-col items-center gap-1 text-center no-underline transition-all duration-200 p-2 rounded-lg flex-1"
           style={{
             color: isActive(href) ? "var(--color-primary)" : "var(--color-text-secondary)",
             background: isActive(href) ? "var(--color-accent)" : "transparent",

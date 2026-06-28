@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
-import { LayoutDashboard, History, MapPin, Baby, LogOut, User, ChevronDown } from "lucide-react";
+import { LayoutDashboard, History, MapPin, Baby, LogOut, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
@@ -29,7 +29,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-20 bg-white"
+      className="app-top-nav sticky top-0 z-20 bg-white"
       style={{
         display: "flex",
         alignItems: "center",
@@ -71,7 +71,7 @@ export default function Navbar() {
           justifyContent: "center",
           marginLeft: "40px",
         }}
-        className="max-md:hidden"
+        className="app-desktop-nav max-md:hidden"
       >
         {navLinks.map(({ href, label, icon: Icon }) => (
           <Link
@@ -100,7 +100,7 @@ export default function Navbar() {
       </div>
 
       {/* Profile Section */}
-      <div style={{ display: "flex", alignItems: "center", gap: "16px", position: "relative" }}>
+      <div className="app-profile-section" style={{ display: "flex", alignItems: "center", gap: "16px", position: "relative" }}>
         <div
           style={{
             display: "flex",
@@ -114,7 +114,7 @@ export default function Navbar() {
           onClick={() => setIsProfileOpen(!isProfileOpen)}
           onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--color-accent)")}
           onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-          className="max-md:hidden"
+          className="mobile-profile-trigger"
         >
           <div
             style={{
@@ -157,7 +157,7 @@ export default function Navbar() {
               minWidth: "160px",
               overflow: "hidden",
             }}
-            className="max-md:hidden"
+            className="profile-dropdown"
           >
             <button
               onClick={handleLogout}
@@ -185,22 +185,6 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* Mobile Logout Button */}
-        <button
-          onClick={handleLogout}
-          style={{
-            padding: "8px",
-            borderRadius: "8px",
-            border: "none",
-            background: "none",
-            cursor: "pointer",
-            transition: ".3s",
-          }}
-          className="md:hidden"
-          title="Logout"
-        >
-          <LogOut size={20} style={{ color: "var(--color-primary)" }} />
-        </button>
       </div>
     </nav>
   );
