@@ -596,6 +596,10 @@ h3 {
     min-height: 100svh !important;
   }
 
+  .auth-brand-panel {
+    display: none !important;
+  }
+
   .auth-form-panel {
     min-height: 100svh !important;
     padding: 24px 16px !important;

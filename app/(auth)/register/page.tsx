@@ -67,10 +67,9 @@ export default function RegisterPage() {
         width: "100%",
         minHeight: "100vh",
         display: "grid",
-        gridTemplateColumns: "1fr 1fr",
         background: "linear-gradient(180deg, #fff8f6 0%, var(--background) 100%)",
       }}
-      className="auth-page max-md:grid-cols-1"
+      className="auth-page grid-cols-1 md:grid-cols-2"
     >
       {/* Left Side - Branding */}
       <div
@@ -134,7 +133,7 @@ export default function RegisterPage() {
           alignItems: "center",
           padding: "40px",
         }}
-        className="auth-form-panel max-md:px-5"
+        className="auth-form-panel max-md:min-h-screen max-md:px-5 max-md:py-8"
       >
         <div className="auth-card" style={{ width: "100%", maxWidth: "440px" }}>
           {/* Mobile Logo */}
@@ -440,6 +439,21 @@ export default function RegisterPage() {
                 className="hover:opacity-75"
               >
                 Sign In
+              </Link>
+            </p>
+            <p style={{ color: "var(--color-text-muted)", fontSize: "14px", marginTop: "14px" }}>
+              Registering a hospital?{" "}
+              <Link
+                href="/hospital-register"
+                style={{
+                  color: "var(--color-primary)",
+                  fontWeight: "800",
+                  textDecoration: "none",
+                  transition: "opacity .2s",
+                }}
+                className="hover:opacity-75"
+              >
+                Create hospital account
               </Link>
             </p>
           </div>
