@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* MamaGuard Color Palette */
+  --color-primary: #A8554A;
+  --color-primary-light: #b96f62;
+  --color-primary-lighter: #df9c90;
+  
+  --color-dark: #2E2228;
+  --color-dark-secondary: #34282d;
+  
+  --color-cream: #faf5f1;
+  --color-accent: #f8e4df;
+  
+  --color-text-muted: #8b7775;
+  --color-text-secondary: #806d73;
+  
+  --color-border: #eee2db;
+  
+  /* Semantic */
+  --background: #faf5f1;
+  --foreground: #34282d;
+  --success: #4CAF50;
+  --warning: #FFC107;
+  --danger: #F44336;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-nunito);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Typography */
+h1 {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.text-small {
+  color: var(--color-text-muted);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Utility Classes */
+.container-mamaguard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  .container-mamaguard {
+    padding: 20px;
+    padding-bottom: 110px;
+  }
 }
